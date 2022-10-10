@@ -5,7 +5,7 @@ import Context from "../Context.js";
 let MealItem = (props) => {
   let c = useContext(Context);
   //c.push({ name: props.name, amount: "", price: props.price });
-  console.log(c);
+
   let price = `$${props.price.toFixed(2)}`;
   return (
     <li className={styles.meal}>

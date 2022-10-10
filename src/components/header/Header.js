@@ -6,7 +6,7 @@ let Header = (props) => {
   return (
     <Fragment>
       <header className={styles.header}>
-        <h1>React Meals</h1>
+        <h1 className={styles.title}>React Meals</h1>
         <HeaderCartButton onshowCart={props.onshowCart} />
       </header>
       <div className={styles["main-image"]}>

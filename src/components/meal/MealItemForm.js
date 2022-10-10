@@ -1,10 +1,8 @@
 import styles from "./MealItemForm.module.css";
 import Input from "../UI/input/Input.js";
 import { useContext } from "react";
-import Context from "../Context.js";
-let MealItemForm = () => {
-  let contextCart = useContext(Context);
 
+let MealItemForm = () => {
   let handlerForm = (event) => {
     event.preventDefault();
   };
