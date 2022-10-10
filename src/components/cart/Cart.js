@@ -1,13 +1,14 @@
 import styles from "./Cart.module.css";
 import CartItem from "./CartItem.js";
 import Modal from "../meal/Modal.js";
+import Context from "../Context.js";
 let Cart = (props) => {
   let carts = [{ name: "Pizza", price: "$45", amount: "x2" }];
   let renderingCart = () => {
     props.onhideCart(true);
   };
   return (
-    <Modal>
+    <Modal onClick={props.onhideCart}>
       <div className={styles["cart-items"]}>
         <CartItem carts={carts} />
       </div>
