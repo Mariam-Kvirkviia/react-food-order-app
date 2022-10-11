@@ -1,14 +1,22 @@
 import styles from "./MealItemForm.module.css";
 import Input from "../UI/input/Input.js";
-import { useContext } from "react";
+import { useRef } from "react";
 
-let MealItemForm = () => {
+let MealItemForm = (props) => {
+  let formRef = useRef();
   let handlerForm = (event) => {
     event.preventDefault();
+    let enteredAmount = formRef.current.value;
+    if (+enteredAmount.trim().length === 0) {
+      return;
+    }
+    props.onAddToCart(enteredAmount);
   };
+
   return (
     <form className={styles.form} onSubmit={handlerForm}>
       <Input
+        ref={formRef}
         input={{
           htmlFor: "Amount",
           id: Math.random(),

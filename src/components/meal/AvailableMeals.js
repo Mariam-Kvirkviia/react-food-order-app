@@ -31,7 +31,7 @@ let mealsList = meals.map((el, index) => {
   return (
     <div key={index}>
       <MealItem
-        id={el.id}
+        id={index}
         name={el.name}
         description={el.description}
         price={el.price}

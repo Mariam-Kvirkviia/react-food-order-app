@@ -1,6 +1,6 @@
 import Header from "./components/header/Header";
 import Meals from "./components/meal/Meals";
-import { useState, useReducer, useRef } from "react";
+import { useState, useReducer, useContext } from "react";
 import Cart from "./components/cart/Cart.js";
 import Context from "./components/Context.js";
 
@@ -12,14 +12,16 @@ let cartReducer = (state, action) => {
   if (action.type === "ADD") {
     let updatedItems = state.items.concat(action.item);
     let updatedTotalAmount =
-      state.totalAmount + action.item.price * action.item.amount;
+      +state.totalAmount + +action.item.price * +action.item.item;
+
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
   return defaultCartState;
 };
 function App() {
-  let mealRef = useRef();
-  console.log(mealRef);
+  let content = useContext(Context);
+  content.totalAmount = defaultCartState.totalAmount;
+
   let [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -43,12 +45,13 @@ function App() {
     addItem: addItemToCart,
     removeItem: removeItemFromCart,
   };
+
   return (
     <Context.Provider value={cartContext}>
       {!closeCart && <Cart onhideCart={hideCart} />}
       <Header onshowCart={showCart} />
       <main>
-        <Meals ref={mealRef} />
+        <Meals />
       </main>
     </Context.Provider>
   );

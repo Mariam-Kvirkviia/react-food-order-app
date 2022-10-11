@@ -4,8 +4,14 @@ import { useContext } from "react";
 import Context from "../Context.js";
 let MealItem = (props) => {
   let c = useContext(Context);
-  //c.push({ name: props.name, amount: "", price: props.price });
-
+  let addToCart = (item) => {
+    c.addItem({
+      item: item,
+      id: props.id,
+      name: props.name,
+      price: props.price,
+    });
+  };
   let price = `$${props.price.toFixed(2)}`;
   return (
     <li className={styles.meal}>
@@ -15,7 +21,7 @@ let MealItem = (props) => {
         <h3 className={styles.price}>{price}</h3>
       </div>
       <div>
-        <MealItemForm />
+        <MealItemForm onAddToCart={addToCart} />
       </div>
     </li>
   );
