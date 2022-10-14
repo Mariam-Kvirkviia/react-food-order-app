@@ -5,14 +5,12 @@ import Context from "../Context.js";
 import { useContext } from "react";
 let Cart = (props) => {
   let carts = useContext(Context);
-  
+  console.log(carts);
   let hasItems = carts.items.length > 0;
   let renderingCart = () => {
     props.onhideCart(true);
   };
-  let remove = () => {
-    let id = carts.items.id;
-  };
+  let remove = () => {};
   let add = () => {};
   return (
     <Modal onClick={props.onhideCart}>
