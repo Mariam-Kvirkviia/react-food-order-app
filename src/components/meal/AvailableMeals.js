@@ -29,14 +29,12 @@ let meals = [
 ];
 let mealsList = meals.map((el, index) => {
   return (
-    <div key={index}>
-      <MealItem
-        id={index}
-        name={el.name}
-        description={el.description}
-        price={el.price}
-      />
-    </div>
+    <MealItem
+      id={index}
+      name={el.name}
+      description={el.description}
+      price={el.price}
+    />
   );
 });
 let AvailableMeals = () => {
