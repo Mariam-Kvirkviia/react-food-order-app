@@ -1,28 +1,28 @@
 import classes from "./Cart.module.css";
-import { Fragment } from "react";
-let cartItems = (
-  <ul className={classes[`cart-items`]}>
-    {[{ id: 1, name: "pizza", amount: 2, price: 13 }].map((el) => {
-      return <li key={el.id}>{el.name}</li>;
-    })}
-  </ul>
-);
+import { Fragment, useContext } from "react";
+import Context from "../../Context";
+import CartItems from "./CartItem";
 let Cart = (props) => {
-  let renderingModal = () => {
-    props.onSetModal(false);
-  };
+  let ctx = useContext(Context);
+  let totalAmount = `$${ctx.totalAmount.toFixed(2)}`;
+
   return (
     <Fragment>
-      {cartItems}
+      <div className={classes["cart-items"]}>
+        <CartItems carts={ctx} />
+      </div>
+
       <div className={classes.total}>
-        <span>total amount</span>
-        <span>23</span>
+        <span>Total Amount</span>
+        <span>{totalAmount}</span>
       </div>
       <div className={classes.actions}>
-        <button className={classes[`button--alt`]} onClick={renderingModal}>
+        <button className={classes[`button--alt`]} onClick={props.onSetModal}>
           Close
         </button>
-        <button className={classes.button}>Order</button>
+        {ctx.totalAmount !== 0 && (
+          <button className={classes.button}>Order</button>
+        )}
       </div>
     </Fragment>
   );
