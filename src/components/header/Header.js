@@ -7,7 +7,7 @@ let Header = (props) => {
     <Fragment>
       <header className={styles.header}>
         <h1 className={styles.title}>React Meals</h1>
-        <HeaderCartButton onshowCart={props.onshowCart} />
+        <HeaderCartButton onSetModal={props.onSetModal} />
       </header>
       <div className={styles["main-image"]}>
         <img src={meal} alt="meals" />

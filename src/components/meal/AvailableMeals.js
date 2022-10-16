@@ -27,10 +27,11 @@ let meals = [
     price: 18.99,
   },
 ];
-let mealsList = meals.map((el, index) => {
+let mealsList = meals.map((el) => {
   return (
     <MealItem
-      id={index}
+      key={el.id}
+      id={el.id}
       name={el.name}
       description={el.description}
       price={el.price}
