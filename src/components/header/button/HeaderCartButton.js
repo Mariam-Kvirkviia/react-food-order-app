@@ -7,6 +7,7 @@ let HeaderCartButton = (props) => {
   let numberOfCartsItems = ctx.items.reduce((acc, item) => {
     return acc + item.amount;
   }, 0);
+
   return (
     <button className={classes.button} onClick={props.onSetModal}>
       <span className={classes.icon}>
