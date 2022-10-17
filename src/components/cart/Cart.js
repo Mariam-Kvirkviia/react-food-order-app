@@ -36,7 +36,7 @@ let Cart = (props) => {
         <button className={classes[`button--alt`]} onClick={props.onSetModal}>
           Close
         </button>
-        {ctx.totalAmount !== 0 && (
+        {ctx.totalAmount > 0 && (
           <button className={classes.button}>Order</button>
         )}
       </div>
