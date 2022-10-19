@@ -4,12 +4,22 @@ import { useState, useEffect } from "react";
 import MealItem from "./MealItem.js";
 let AvailableMeals = () => {
   let [fetchMeal, setFetch] = useState("");
+  let [loading, setLoading] = useState(false);
+  let [error, setError] = useState(false);
   useEffect(() => {
+    setLoading(true);
     fetch("https://food-app-19d70-default-rtdb.firebaseio.com/food.json")
       .then((response) => response.json())
-      .then((data) => setFetch(data))
-      .catch(() => console.log("error"));
+      .then((data) => {
+        setLoading(false);
+        return setFetch(data);
+      })
+      .catch(() => {
+        setLoading(false);
+        setError(true);
+      });
   }, []);
+
   let newFetchMeal = [];
   for (let key in fetchMeal) {
     if (fetchMeal[key]) {
@@ -21,6 +31,7 @@ let AvailableMeals = () => {
       });
     }
   }
+
   let mealsList = newFetchMeal.map((el) => {
     return (
       <MealItem
@@ -35,7 +46,9 @@ let AvailableMeals = () => {
 
   return (
     <Card className={styles.meals}>
-      <ul>{mealsList}</ul>
+      {loading && <p className={styles.loading}>loading...</p>}
+      {error && <p className={styles.error}>Something went wrong!</p>}
+      {!loading && <ul>{mealsList}</ul>}
     </Card>
   );
 };
