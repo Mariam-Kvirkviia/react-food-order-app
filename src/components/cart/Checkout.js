@@ -37,6 +37,13 @@ let Chekout = (props) => {
       enteredStreetValid
     ) {
       formIsValid = true;
+      let data = {
+        name: enteredName,
+        street: enteredStreet,
+        code: enteredPostal,
+        sity: enteredSity,
+      };
+      props.onSubmitOrder(data);
     }
   };
   let error = <p className={classes.error}>must not be empty!</p>;

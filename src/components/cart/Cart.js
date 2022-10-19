@@ -17,6 +17,12 @@ let Cart = (props) => {
   let orderHandler = () => {
     setOrder(true);
   };
+  let submitOrder = (data) => {
+    fetch("https://food-app-19d70-default-rtdb.firebaseio.com/data.json", {
+      method: "POST",
+      body: JSON.stringify({ user: data, orderedItems: ctx.items }),
+    });
+  };
   let modalActions = (
     <div className={classes.actions}>
       <button className={classes[`button--alt`]} onClick={props.onSetModal}>
@@ -50,7 +56,9 @@ let Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {order && <Chekout onSetModal={props.onSetModal} />}
+      {order && (
+        <Chekout onSetModal={props.onSetModal} onSubmitOrder={submitOrder} />
+      )}
       {!order && modalActions}
     </Fragment>
   );
