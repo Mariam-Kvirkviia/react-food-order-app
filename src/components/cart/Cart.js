@@ -1,5 +1,5 @@
 import classes from "./Cart.module.css";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useState, useEffect } from "react";
 import Context from "../../Context";
 import CartItems from "./CartItem";
 import Chekout from "./Checkout";
@@ -7,6 +7,12 @@ let Cart = (props) => {
   let [order, setOrder] = useState(false);
   let ctx = useContext(Context);
   let totalAmount = `$${ctx.totalAmount.toFixed(2)}`;
+
+  useEffect(() => {
+    if (ctx.items.length === 0) {
+      setOrder(false);
+    }
+  }, [ctx.items.length]);
   let removeHandler = (id) => {
     ctx.removeItem(id);
   };
@@ -17,6 +23,7 @@ let Cart = (props) => {
   let orderHandler = () => {
     setOrder(true);
   };
+
   let submitOrder = (data) => {
     fetch("https://food-app-19d70-default-rtdb.firebaseio.com/data.json", {
       method: "POST",
@@ -28,6 +35,7 @@ let Cart = (props) => {
       <button className={classes[`button--alt`]} onClick={props.onSetModal}>
         Close
       </button>
+      {console.log(ctx.totalAmount)}
       {ctx.totalAmount > 0 && (
         <button className={classes.button} onClick={orderHandler}>
           Order

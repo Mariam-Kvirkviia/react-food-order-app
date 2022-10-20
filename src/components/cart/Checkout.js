@@ -1,34 +1,43 @@
 import classes from "./Checkout.module.css";
-import { useRef, useState } from "react";
+import useCustom from "../../UseCustom";
 let Chekout = (props) => {
-  let [formValidity, setFormValidity] = useState({
-    name: false,
-    street: false,
-    code: false,
-    sity: false,
-  });
   let formIsValid = false;
   let textIsValid = (text) => text.trim() !== "";
   let code = (text) => text.trim().length > 6;
-  let refName = useRef();
-  let refStreet = useRef();
-  let refPostal = useRef();
-  let refSity = useRef();
+  let {
+    enteredValue: enteredName,
+    touched: touchedName,
+    isvalid: enteredNameValid,
+    blurValue: blurName,
+    changeValue: changeName,
+    resetValue: resetName,
+  } = useCustom(textIsValid);
+  let {
+    enteredValue: enteredPostal,
+    touched: touchedPostal,
+    isvalid: enteredPostalValid,
+    blurValue: blurPostal,
+    changeValue: changePostal,
+    resetValue: resetPostal,
+  } = useCustom(code);
+  let {
+    enteredValue: enteredSity,
+    touched: touchedSity,
+    isvalid: enteredSityValid,
+    blurValue: blurSity,
+    changeValue: changeSity,
+    resetValue: resetSity,
+  } = useCustom(textIsValid);
+  let {
+    enteredValue: enteredStreet,
+    touched: touchedStreet,
+    isvalid: enteredStreetValid,
+    blurValue: blurStreet,
+    changeValue: changeStreet,
+    resetValue: resetStreet,
+  } = useCustom(textIsValid);
+
   let handlerForm = (event) => {
-    let enteredName = refName.current.value;
-    let enteredStreet = refStreet.current.value;
-    let enteredPostal = refPostal.current.value;
-    let enteredSity = refSity.current.value;
-    let enteredNameValid = textIsValid(enteredName);
-    let enteredStreetValid = textIsValid(enteredStreet);
-    let enteredSityValid = textIsValid(enteredSity);
-    let enteredPostalValid = code(enteredPostal);
-    setFormValidity({
-      name: enteredNameValid,
-      street: enteredStreetValid,
-      code: enteredPostalValid,
-      sity: enteredSityValid,
-    });
     event.preventDefault();
     if (
       enteredNameValid &&
@@ -44,48 +53,76 @@ let Chekout = (props) => {
         sity: enteredSity,
       };
       props.onSubmitOrder(data);
+      resetName();
+      resetPostal();
+      resetSity();
+      resetStreet();
     }
   };
-  let error = <p className={classes.error}>must not be empty!</p>;
+  let error = <p className={classes.error}>Must not be empty!</p>;
   return (
     <form onSubmit={handlerForm} className={classes.form}>
       <div
         className={`${classes.control} ${
-          formValidity.name ? "" : classes.invalid
+          !enteredNameValid && touchedName ? classes.invalid : ""
         }`}
       >
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" ref={refName} />
-        {!formValidity.name && error}
+        <input
+          type="text"
+          id="name"
+          value={enteredName}
+          onBlur={blurName}
+          onChange={changeName}
+        />
+        {!enteredNameValid && touchedName && error}
       </div>
       <div
         className={`${classes.control} ${
-          formValidity.street ? "" : classes.invalid
+          !enteredStreetValid && touchedStreet ? classes.invalid : ""
         }`}
       >
         <label htmlFor="street">Street</label>
-        <input type="text" id="street" ref={refStreet} />
-        {!formValidity.street && error}
+        <input
+          type="text"
+          id="street"
+          value={enteredStreet}
+          onBlur={blurStreet}
+          onChange={changeStreet}
+        />
+        {!enteredStreetValid && touchedStreet && error}
       </div>
       <div
         className={`${classes.control} ${
-          formValidity.code ? "" : classes.invalid
+          !enteredPostalValid && touchedPostal ? classes.invalid : ""
         }`}
       >
         <label htmlFor="Postal code<">Postal code</label>
-        <input type="text" id="Postal code" ref={refPostal} />
-        {!formValidity.code && (
-          <p className={classes.error}>must be more than 6!</p>
+        <input
+          type="text"
+          id="Postal code"
+          value={enteredPostal}
+          onBlur={blurPostal}
+          onChange={changePostal}
+        />
+        {!enteredPostalValid && touchedPostal && (
+          <p className={classes.error}>Enter a valid postal code!</p>
         )}
       </div>
       <div
         className={`${classes.control} ${
-          formValidity.sity ? "" : classes.invalid
+          !enteredSityValid && touchedSity ? classes.invalid : ""
         }`}
       >
         <label htmlFor="Sity">Sity</label>
-        <input type="text" id="Sity" ref={refSity} />
-        {!formValidity.sity && error}
+        <input
+          type="text"
+          id="Sity"
+          value={enteredSity}
+          onBlur={blurSity}
+          onChange={changeSity}
+        />
+        {!enteredSityValid && touchedSity && error}
       </div>
       <div className={classes.actions}>
         <button type="button" onClick={props.onSetModal}>
