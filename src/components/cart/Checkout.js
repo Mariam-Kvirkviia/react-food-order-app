@@ -57,6 +57,11 @@ let Chekout = (props) => {
       resetPostal();
       resetSity();
       resetStreet();
+    } else {
+      blurName();
+      blurPostal();
+      blurSity();
+      blurStreet();
     }
   };
   let error = <p className={classes.error}>Must not be empty!</p>;

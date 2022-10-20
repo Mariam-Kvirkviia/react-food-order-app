@@ -1,5 +1,5 @@
 import Header from "./components/header/Header";
-import { useState, useContext, useReducer } from "react";
+import { useState, useReducer } from "react";
 import Context from "./Context";
 import Meals from "./components/meal/Meals";
 import Modal from "./components/meal/Modal";
@@ -45,16 +45,21 @@ let reducer = (state, action) => {
     }
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
+  if (action.type === "CLEAR") {
+    return defaultCart;
+  }
   return defaultCart;
 };
 let App = () => {
-  let ctx = useContext(Context);
   let [cartState, dispatchCart] = useReducer(reducer, defaultCart);
   let addItemToCart = (item) => {
     dispatchCart({ type: "ADD", item: item });
   };
   let removeItemFromCart = (id) => {
     dispatchCart({ type: "REMOVE", id: id });
+  };
+  let clearCart = () => {
+    dispatchCart({ type: "CLEAR" });
   };
   let [showModal, setModal] = useState(false);
 
@@ -75,7 +80,7 @@ let App = () => {
     >
       <Header onSetModal={showingModal} />
       <Meals />
-      {showModal && <Modal onSetModal={hidingModal} />}
+      {showModal && <Modal onSetModal={hidingModal} onClear={clearCart} />}
     </Context.Provider>
   );
 };

@@ -5,6 +5,8 @@ import CartItems from "./CartItem";
 import Chekout from "./Checkout";
 let Cart = (props) => {
   let [order, setOrder] = useState(false);
+  let [submitForm, setSubmitForm] = useState(false);
+  let [didSubmit, setDidSubmit] = useState(false);
   let ctx = useContext(Context);
   let totalAmount = `$${ctx.totalAmount.toFixed(2)}`;
 
@@ -25,26 +27,30 @@ let Cart = (props) => {
   };
 
   let submitOrder = (data) => {
+    setSubmitForm(true);
     fetch("https://food-app-19d70-default-rtdb.firebaseio.com/data.json", {
       method: "POST",
       body: JSON.stringify({ user: data, orderedItems: ctx.items }),
     });
+    setSubmitForm(false);
+    setDidSubmit(true);
+    props.onClear();
   };
   let modalActions = (
     <div className={classes.actions}>
       <button className={classes[`button--alt`]} onClick={props.onSetModal}>
         Close
       </button>
-      {console.log(ctx.totalAmount)}
-      {ctx.totalAmount > 0 && (
+      {ctx.totalAmount > 1 && (
         <button className={classes.button} onClick={orderHandler}>
           Order
         </button>
       )}
     </div>
   );
-  return (
+  let content = (
     <Fragment>
+      {" "}
       <div className={classes["cart-items"]}>
         {ctx.items.map((el) => {
           return (
@@ -59,7 +65,6 @@ let Cart = (props) => {
           );
         })}
       </div>
-
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
@@ -68,6 +73,24 @@ let Cart = (props) => {
         <Chekout onSetModal={props.onSetModal} onSubmitOrder={submitOrder} />
       )}
       {!order && modalActions}
+    </Fragment>
+  );
+  let submmitingContent = <p>Sending order data...</p>;
+  let didSubmitContent = (
+    <Fragment>
+      <p>Successfully sent the order!</p>
+      <div className={classes.actions}>
+        <button className={classes[`button--alt`]} onClick={props.onSetModal}>
+          Close
+        </button>
+      </div>
+    </Fragment>
+  );
+  return (
+    <Fragment>
+      {!submitForm && !didSubmit && content}
+      {submitForm && submmitingContent}
+      {!submitForm && didSubmit && didSubmitContent}
     </Fragment>
   );
 };
