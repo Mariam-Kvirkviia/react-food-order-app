@@ -28,7 +28,7 @@ let Cart = (props) => {
 
   let submitOrder = (data) => {
     setSubmitForm(true);
-    fetch("https://food-app-19d70-default-rtdb.firebaseio.com/data.json", {
+    fetch("https://react-projects-160bb-default-rtdb.firebaseio.com/data.json", {
       method: "POST",
       body: JSON.stringify({ user: data, orderedItems: ctx.items }),
     });
