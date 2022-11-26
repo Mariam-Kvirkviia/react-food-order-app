@@ -64,11 +64,12 @@ let App = () => {
   let [showModal, setModal] = useState(false);
 
   let showingModal = () => {
-    setModal(true);
+    setModal((prev) => !prev);
   };
   let hidingModal = () => {
-    setModal(false);
+    setModal((prev) => !prev);
   };
+
   return (
     <Context.Provider
       value={{
@@ -76,12 +77,43 @@ let App = () => {
         totalAmount: cartState.totalAmount,
         addItem: addItemToCart,
         removeItem: removeItemFromCart,
+        hiding: hidingModal,
+        showing: showingModal,
       }}
     >
-      <Header onSetModal={showingModal} />
+      <Header />
       <Meals />
-      {showModal && <Modal onSetModal={hidingModal} onClear={clearCart} />}
+    
+      {showModal && <Modal onClear={clearCart} show={showModal} />}
     </Context.Provider>
   );
 };
+/**  let data = [
+   
+    {
+      "description": "Finest fish and veggies",
+      "id": "m1",
+      "name": "Sushi",
+      "price": 22.99
+    },
+    {
+      "description": "A german specialty!",
+      "id": "m2",
+      "name": "Schnitzel",
+      "price": 16.5
+    },
+    {
+      "description": " American, raw, meaty",
+      "id": "m3",
+      "name": "Barbecue Burger",
+      "price": 12.99
+    },
+    {
+      "description": "Healthy...and green...",
+      "id": "m4",
+      "name": "Green Bowl",
+      "price": 18.99
+    }
+  ]
+ fetch("https://react-projects-160bb-default-rtdb.firebaseio.com/food.json",{method:"POST",body:JSON.stringify(data)}) */
 export default App;

@@ -8,7 +8,9 @@ let AvailableMeals = () => {
   let [error, setError] = useState(false);
   useEffect(() => {
     setLoading(true);
-    fetch("https://react-projects-160bb-default-rtdb.firebaseio.com/food.json")
+    fetch(
+      "https://react-projects-160bb-default-rtdb.firebaseio.com/food/-NHn-3lVBtiY6b_keEVc.json"
+    )
       .then((response) => response.json())
       .then((data) => {
         setLoading(false);

@@ -28,17 +28,23 @@ let Cart = (props) => {
 
   let submitOrder = (data) => {
     setSubmitForm(true);
-    fetch("https://react-projects-160bb-default-rtdb.firebaseio.com/data.json", {
-      method: "POST",
-      body: JSON.stringify({ user: data, orderedItems: ctx.items }),
-    });
+    fetch(
+      "https://react-projects-160bb-default-rtdb.firebaseio.com/data.json",
+      {
+        method: "POST",
+        body: JSON.stringify({ user: data, orderedItems: ctx.items }),
+      }
+    );
     setSubmitForm(false);
     setDidSubmit(true);
     props.onClear();
   };
+  let hiding = () => {
+    ctx.hiding();
+  };
   let modalActions = (
     <div className={classes.actions}>
-      <button className={classes[`button--alt`]} onClick={props.onSetModal}>
+      <button className={classes[`button--alt`]} onClick={hiding}>
         Close
       </button>
       {ctx.totalAmount > 1 && (

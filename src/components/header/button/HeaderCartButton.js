@@ -7,9 +7,11 @@ let HeaderCartButton = (props) => {
   let numberOfCartsItems = ctx.items.reduce((acc, item) => {
     return acc + item.amount;
   }, 0);
-
+  let showing = () => {
+    ctx.showing();
+  };
   return (
-    <button className={classes.button} onClick={props.onSetModal}>
+    <button className={classes.button} onClick={showing}>
       <span className={classes.icon}>
         <CartIcon />
       </span>

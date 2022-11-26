@@ -18,7 +18,12 @@
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
+}
+.down {
   animation: slide-down 300ms ease-out forwards;
+}
+.up {
+  animation: slide-up 300ms ease-out forwards;
 }
 
 @media (min-width: 768px) {
@@ -36,5 +41,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@keyframes slide-up {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-3rem);
   }
 }
