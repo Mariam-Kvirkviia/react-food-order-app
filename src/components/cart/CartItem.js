@@ -1,5 +1,6 @@
 import styles from "./CartItem.module.css";
 import { Fragment } from "react";
+import { getDefaultNormalizer } from "@testing-library/react";
 let CartItem = (props) => {
   return (
     <Fragment>
