@@ -86,7 +86,7 @@ let Cart = (props) => {
     <Fragment>
       <p>Successfully sent the order!</p>
       <div className={classes.actions}>
-        <button className={classes[`button--alt`]} onClick={props.onSetModal}>
+        <button className={classes[`button--alt`]} onClick={hiding}>
           Close
         </button>
       </div>

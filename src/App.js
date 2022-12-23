@@ -64,9 +64,11 @@ let App = () => {
   let [showModal, setModal] = useState(false);
 
   let showingModal = () => {
+    console.log(showModal);
     setModal((prev) => !prev);
   };
   let hidingModal = () => {
+    console.log(showModal);
     setModal((prev) => !prev);
   };
 
@@ -83,7 +85,7 @@ let App = () => {
     >
       <Header />
       <Meals />
-    
+
       {showModal && <Modal onClear={clearCart} show={showModal} />}
     </Context.Provider>
   );
